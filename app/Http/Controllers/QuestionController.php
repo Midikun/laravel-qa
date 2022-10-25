@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use DB;
 use App\Question;
 use Illuminate\Http\Request;
 
@@ -14,8 +14,9 @@ class QuestionController extends Controller
      */
     public function index()
     {
+        \DB::enableQueryLog();
         $questions=Question::latest()->paginate(5);
-        return view('questions.index',compact('questions'));
+      return  view('questions.index',compact('questions'));
     }
 
     /**
