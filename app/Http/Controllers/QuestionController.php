@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Question;
 use Illuminate\Http\Request;
 use App\Http\Requests\AskQuestionRequest;
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 
 class QuestionController extends Controller
@@ -89,6 +91,11 @@ class QuestionController extends Controller
      */
     public function destroy(Question $question)
     {
-        //
+        
+
+        $question->delete();
+
+
+        return redirect('/questions')->with('success', "Your question has been deleted.");
     }
 }
