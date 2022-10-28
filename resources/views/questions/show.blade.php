@@ -50,7 +50,7 @@
             </div>
         </div>
     </div>
-    <div class="row mt-4">
+  <!--  <div class="row mt-4">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
@@ -92,6 +92,11 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
+    @include ('answers._index', [
+        'answers' => $question->answers,
+        'answersCount' => $question->answers_count,
+    ])
+    @include ('answers._create')
 </div>
 @endsection
