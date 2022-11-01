@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 use App\Question;
 use App\Answer;
 
-
 use Illuminate\Http\Request;
 
 class AnswersController extends Controller
@@ -17,20 +16,20 @@ class AnswersController extends Controller
 
         return back()->with('success', "Your answer has been submitted successfully");
     } 
-    public function edit(Question $question, Answer $answer)
+    public function destroy(Question $question, Answer $answer)
     {
-        $this->authorize('update', $answer);
+        $this->authorize('delete', $answer);
 
-        return view('answers.edit', compact('question', 'answer'));
+        $answer->delete();
+
+        if (request()->expectsJson())
+        {
+            return response()->json([
+                'message' => "Your answer has been removed"
+            ]);
+        }
+
+        return back()->with('success', "Your answer has been removed");
     }
-    public function update(Request $request, Question $question, Answer $answer)
-    {
-        $this->authorize('update', $answer);
-
-        $answer->update($request->validate([
-            'body' => 'required',
-        ]));
-
-        return redirect()->route('questions.show', $question->slug)->with('success', 'Your answer has been updated');
-    }
+    
 }
